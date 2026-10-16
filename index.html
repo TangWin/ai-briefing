@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0d10" media="(prefers-color-scheme: dark)">
+<title>每日 AI 技术情报</title>
+<script>(function(){var t=localStorage.getItem('brief-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t})();</script>
+<style>
+:root{--bg:#fbfbfa;--panel:#fff;--ink:#16181d;--ink2:#3d4148;--mut:#71757d;--faint:#a3a7ae;--line:#ebebe8;--line2:#e2e2de;
+--ac:#5b5bd6;--ac-soft:rgba(91,91,214,.08);--hot:#d9480f;--hot-soft:rgba(217,72,15,.08);
+--shadow:0 1px 2px rgba(16,18,24,.04),0 1px 1px rgba(16,18,24,.02);--shadow-h:0 8px 24px -12px rgba(16,18,24,.14),0 1px 2px rgba(16,18,24,.05);color-scheme:light}
+:root[data-theme=dark]{--bg:#0c0d10;--panel:#14161a;--ink:#ecedef;--ink2:#c5c8ce;--mut:#8b9099;--faint:#5d626b;--line:#1f2228;--line2:#2a2d34;
+--ac:#9b9bff;--ac-soft:rgba(155,155,255,.10);--hot:#ff8f5a;--hot-soft:rgba(255,143,90,.10);
+--shadow:0 0 0 1px rgba(255,255,255,.01);--shadow-h:0 10px 30px -14px rgba(0,0,0,.7);color-scheme:dark}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Segoe UI",sans-serif;
+-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"palt" 0}
+a{color:inherit}button{font:inherit;color:inherit}
+.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;height:56px;font-size:13px;color:var(--mut)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;letter-spacing:.01em;text-decoration:none}
+.logo{width:18px;height:18px;border-radius:5px;background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 45%,#e879f9));box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.theme{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--line2);background:var(--panel);cursor:pointer;color:var(--mut);transition:color .15s,border-color .15s}
+.theme:hover{color:var(--ink);border-color:var(--faint)}.theme svg{width:15px;height:15px}
+.theme .sun{display:none}:root[data-theme=dark] .theme .sun{display:block}:root[data-theme=dark] .theme .moon{display:none}
+/* hero */
+.hero{padding:44px 0 30px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.08em;color:var(--ac);font-weight:600;text-transform:uppercase}
+.eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 3px var(--ac-soft)}
+.hero h1{margin:14px 0 0;font-size:clamp(30px,6.4vw,44px);line-height:1.18;letter-spacing:-.02em;font-weight:700}
+.hero h1 span{color:var(--faint);font-weight:500}
+.lede{margin:12px 0 0;color:var(--mut);font-size:15.5px}
+.facts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin-top:22px;font-size:13px;color:var(--mut)}
+.facts>span{display:inline-flex;align-items:center;gap:7px}
+.facts b{color:var(--ink2);font-weight:500}
+.pill{padding:2px 9px;border-radius:999px;border:1px solid var(--line2);background:var(--panel);font-size:12px;color:var(--ink2)}
+.pill::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#22a06b;margin-right:6px;vertical-align:1px}
+/* highlights */
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin:6px 0 12px}
+.sec-h h2{margin:0;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink2)}
+.sec-h small{font-size:12px;color:var(--faint)}
+.hl{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;list-style:none;margin:0 0 34px;padding:0}
+.hl a{display:flex;flex-direction:column;gap:10px;height:100%;padding:16px 16px 14px;border:1px solid var(--line2);border-radius:12px;background:var(--panel);text-decoration:none;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s,transform .2s}
+.hl a:hover{border-color:color-mix(in srgb,var(--ac) 35%,var(--line2));box-shadow:var(--shadow-h);transform:translateY(-1px)}
+.hl .k{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--faint)}
+.hl .t{font-size:15px;font-weight:600;line-height:1.5;color:var(--ink);letter-spacing:-.005em}
+.hl .s{font-size:13px;line-height:1.6;color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* sticky filter */
+.bar{position:sticky;top:0;z-index:5;margin:0 -20px;padding:10px 20px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.bar.stuck{border-bottom-color:var(--line)}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent);padding-right:24px}
+.chips::-webkit-scrollbar{display:none}
+@media (min-width:641px){.chips{flex-wrap:wrap;overflow:visible;-webkit-mask-image:none;mask-image:none;padding-right:0}}
+.chip{flex:none;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:var(--panel);font-size:13px;color:var(--ink2);cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.chip:hover{border-color:var(--faint)}
+.chip .d{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.chip .n{font-size:11.5px;color:var(--faint)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}.chip.on .n{color:color-mix(in srgb,var(--bg) 60%,transparent)}
+/* list */
+.list{margin:14px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.card{border-bottom:1px solid var(--line);transition:background .2s}
+.card.hide{display:none}
+.head{all:unset;box-sizing:border-box;display:grid;grid-template-columns:34px 1fr 22px;gap:0 12px;width:100%;padding:20px 4px 20px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.head:focus-visible{outline:2px solid var(--ac);outline-offset:2px;border-radius:8px}
+.num{font-size:13px;color:var(--faint);padding-top:3px;letter-spacing:.02em}
+.card.open .num,.head:hover .num{color:var(--ac)}
+.title{display:block;font-size:17px;line-height:1.5;font-weight:600;letter-spacing:-.008em;color:var(--ink)}
+.sum{display:block;margin-top:4px;font-size:14.5px;line-height:1.7;color:var(--mut)}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:12px}
+.tag{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:6px;font-size:12px;line-height:1;color:var(--c);background:color-mix(in srgb,var(--c) 9%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 16%,transparent)}
+.heat{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px 0 6px;border-radius:6px;font-size:12px;line-height:1;font-weight:600;color:var(--hot);background:var(--hot-soft)}
+.heat svg{width:12px;height:12px}
+.chev{display:grid;place-items:center;width:22px;height:22px;margin-top:2px;border-radius:6px;color:var(--faint);transition:transform .3s cubic-bezier(.2,.7,.2,1),color .2s,background .2s}
+.chev svg{width:15px;height:15px}
+.head:hover .chev{color:var(--ink);background:var(--ac-soft)}
+.card.open .chev{transform:rotate(180deg);color:var(--ac)}
+.body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .36s cubic-bezier(.2,.7,.2,1)}
+.card.open .body{grid-template-rows:1fr}
+.inner{overflow:hidden;min-height:0}
+.inner>div{padding:0 26px 26px 46px;opacity:0;transform:translateY(-4px);transition:opacity .25s ease,transform .3s ease}
+.card.open .inner>div{opacity:1;transform:none;transition-delay:.06s}
+.blk{position:relative;padding:2px 0 0 16px;margin-top:16px}
+.blk:first-child{margin-top:0}
+.blk::before{content:"";position:absolute;left:0;top:7px;bottom:4px;width:2px;border-radius:2px;background:var(--line2)}
+.blk.why::before{background:color-mix(in srgb,var(--ac) 55%,transparent)}
+.blk.use::before{background:color-mix(in srgb,#22a06b 60%,transparent)}
+.blk h3{margin:0 0 3px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--mut)}
+.blk p{margin:0;font-size:15px;line-height:1.8;color:var(--ink2)}
+.blk.why h3{color:var(--ac)}.blk.use h3{color:#1f8a5b}:root[data-theme=dark] .blk.use h3{color:#5fd38d}
+.src{margin-top:20px;padding-top:14px;border-top:1px dashed var(--line2);display:flex;flex-wrap:wrap;gap:8px}
+.src a{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px 0 12px;border-radius:8px;border:1px solid var(--line2);background:var(--panel);font-size:13px;color:var(--ink2);text-decoration:none;transition:border-color .15s,color .15s}
+.src a small{color:var(--faint);font-size:11.5px}
+.src a svg{width:13px;height:13px;color:var(--faint);transition:transform .15s,color .15s}
+.src a:hover{border-color:color-mix(in srgb,var(--ac) 40%,var(--line2));color:var(--ac)}.src a:hover svg{color:var(--ac);transform:translate(1px,-1px)}
+.empty{display:none;padding:48px 0;text-align:center;color:var(--faint);font-size:14px}
+footer{margin:0;padding:28px 0 64px;font-size:13px;color:var(--mut);display:flex;flex-direction:column;gap:6px}
+footer .end{color:var(--faint);font-size:12px}
+footer a{color:var(--ac);text-decoration:none}
+/* index */
+.issues{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.issue a{display:grid;grid-template-columns:96px 1fr 16px;gap:16px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.issue .dt{font-size:13px;color:var(--faint);padding-top:3px}.issue .dt b{display:block;color:var(--ink);font-size:15px;font-weight:600}
+.issue ul{margin:8px 0 0;padding:0;list-style:none;font-size:14px;color:var(--mut)}
+.issue li{position:relative;padding-left:14px;line-height:1.75}.issue li::before{content:"";position:absolute;left:0;top:.8em;width:5px;height:1px;background:var(--faint)}
+.issue .go{color:var(--faint);padding-top:4px}.issue .go svg{width:15px;height:15px}
+.issue a:hover .title{color:var(--ac)}.issue a:hover .go{color:var(--ac)}
+@media (max-width:640px){
+ body{font-size:15px}.wrap{padding:0 18px}.bar{margin:0 -18px;padding:10px 18px}
+ .hero{padding:24px 0 22px}.facts{margin-top:16px}
+ .hl{grid-template-columns:1fr;gap:8px;margin-bottom:28px}
+ .hl a{display:grid;grid-template-columns:26px 1fr;gap:2px 10px;padding:13px 14px}
+ .hl .k{grid-row:1/3;align-items:flex-start;padding-top:2px}.hl .k .heat-sm{display:none}
+ .hl .s{-webkit-line-clamp:1}
+ .head{grid-template-columns:28px 1fr 22px;gap:0 8px;padding:18px 0}
+ .title{font-size:16.5px}.sum{font-size:14px}
+ .inner>div{padding:0 0 22px 36px}
+ .issue a{grid-template-columns:1fr 16px}.issue .dt{grid-column:1/-1;display:flex;gap:10px;align-items:baseline}.issue .dt b{display:inline}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.bar,.theme{display:none}.body{grid-template-rows:1fr}.inner>div{opacity:1;transform:none}}
+</style></head>
+<body><div class="wrap">
+<div class="top"><a class="brand" href="index.html"><span class="logo"></span>每日 AI 技术情报</a><button class="theme" aria-label="切换深色模式" title="切换深色模式"><span class="moon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.6A5.6 5.6 0 0 1 6.4 2.5 5.6 5.6 0 1 0 13.5 9.6Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="sun"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span></button></div>
+<header class="hero">
+<div class="eyebrow"><i></i>Archive</div>
+<h1>每日 AI 技术情报</h1>
+<p class="lede">每日精选 Agent、Coding Agent、MCP、Harness 与模型动态，只挑工作里用得上的。</p>
+<div class="facts"><span><b>共</b>1 期</span><span><b>最近更新</b>2026-10-16</span><span class="pill">未使用 X 付费 API</span></div>
+</header>
+<div class="sec-h"><h2>往期简报</h2><small>最新在前</small></div>
+<ol class="issues"><li class="issue"><a href="2026/10/2026-10-16.html"><span class="dt mono"><b>10.16</b>2026 · 周五</span><span><span class="title">9 条 AI 工程动态</span><ul><li>Meta 开源 Muse Spark Open</li><li>GitLab 官方 MCP 正式发布</li><li>争议：神经网络本来就好理解？</li></ul></span><span class="go"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li></ol>
+<footer><span class="end">每日 AI 技术情报</span></footer>
+</div><script>
+const $=(s,r=document)=>[...r.querySelectorAll(s)];
+$('.theme').forEach(b=>b.onclick=()=>{const r=document.documentElement,t=r.dataset.theme==='dark'?'light':'dark';r.dataset.theme=t;localStorage.setItem('brief-theme',t)});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',m=>{if(!localStorage.getItem('brief-theme'))document.documentElement.dataset.theme=m.matches?'dark':'light'});
+function toggle(c,force){const o=force??!c.classList.contains('open');c.classList.toggle('open',o);c.querySelector('.head').setAttribute('aria-expanded',o)}
+$('.card .head').forEach(h=>h.onclick=()=>toggle(h.closest('.card')));
+$('.hl a').forEach(a=>a.onclick=ev=>{const c=document.querySelector(a.getAttribute('href'));if(!c)return;ev.preventDefault();
+ const all=$('.chip').find(x=>!x.dataset.t);if(c.classList.contains('hide')&&all)all.click();toggle(c,true);c.scrollIntoView({behavior:'smooth',block:'start'})});
+$('.chip').forEach(b=>b.onclick=()=>{$('.chip').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});const t=b.dataset.t;let n=0;
+ $('.card').forEach(c=>{const s=!t||c.dataset.tags.split('|').includes(t);c.classList.toggle('hide',!s);n+=s});
+ const e=document.getElementById('empty');if(e)e.style.display=n?'none':'block'});
+const bar=document.querySelector('.bar');if(bar){const io=new IntersectionObserver(([x])=>bar.classList.toggle('stuck',x.intersectionRatio<1),{threshold:[1],rootMargin:'-1px 0px 0px 0px'});io.observe(bar)}
+</script></body></html>
